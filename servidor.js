@@ -53,7 +53,7 @@ app.post('/enviar-correo-orden', (req, res) => {
 
   client.sendEmail({
     From: correoEmpresa,
-    To: emailP,
+    To: `${emailP}, emecolombia2023@gmail.com`,
     Subject: 'Orden de servicios Eme Colombia',
     HtmlBody: cuerpoCorreo,
     Attachments: [attachment],
@@ -104,7 +104,7 @@ app.post('/enviar-correo-checklist', (req, res) => {
 
   client.sendEmail({
     From: correoEmpresa,
-    To: emailP,
+    To: `${emailP}, emecolombia2023@gmail.com`,
     Subject: 'CheckList Eme Colombia',
     HtmlBody: cuerpoCorreo,
     Attachments: [attachment],
@@ -157,7 +157,7 @@ app.post('/enviar-correo-reporte', (req, res) => {
 
   client.sendEmail({
     From: correoEmpresa,
-    To: emailP,
+    To: `${emailP}, emecolombia2023@gmail.com`,
     Subject: 'Reporte de mantenimiento Eme Colombia',
     HtmlBody: cuerpoCorreo,
     Attachments: [attachment],
@@ -211,7 +211,7 @@ app.post('/enviar-correo-remision', (req, res) => {
 
   client.sendEmail({
     From: correoEmpresa,
-    To: emailP,
+    To: `${emailP}, emecolombia2023@gmail.com`,
     Subject: 'Remisión Eme Colombia',
     HtmlBody: cuerpoCorreo,
     Attachments: [attachment],
@@ -265,7 +265,7 @@ app.post('/enviar-correo-acta', (req, res) => {
 
   client.sendEmail({
     From: correoEmpresa,
-    To: emailP,
+    To: `${emailP}, emecolombia2023@gmail.com`,
     Subject: 'Acta de entrega Eme Colombia',
     HtmlBody: cuerpoCorreo,
     Attachments: [attachment],
