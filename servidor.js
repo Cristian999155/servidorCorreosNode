@@ -3,22 +3,20 @@ const postmark = require('postmark');
 const bodyParser = require('body-parser');
 
 const app = express();
+const cors = require('cors');
+
+app.use(cors({
+  origin: '*', // Puedes poner también ['http://127.0.0.1:5501', 'https://tudominio.com'] si quieres ser más estricto
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 const port = 3000; // Puedes cambiar el puerto si lo deseas
 
 // Configura el cliente de Postmark con tu API Key
 const client = new postmark.ServerClient('9fe9d68c-4d61-4430-972c-b1c9da46c0e6'); // Reemplaza con tu API Key
 
-// Configuración manual de CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // O especifica el origen exacto, por ejemplo, 'http://localhost:3000'
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  // Permite las solicitudes preflight (OPTIONS)
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  next();
-});
+
 
 app.use(bodyParser.json({ limit: '50mb' })); // Aumenta el límite si es necesario
 
