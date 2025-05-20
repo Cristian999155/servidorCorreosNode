@@ -286,7 +286,7 @@ app.listen(port, () => {
 
 // Ruta para enviar correos
 app.post('/enviar-correo-orden-compra', (req, res) => {
-  const { pdfBase64, emailP, archivo, nombreFormato } = req.body;
+  const { pdfBase64, emailP, archivo } = req.body;
 
 
   if (!pdfBase64 || pdfBase64.length === 0) {
