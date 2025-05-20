@@ -282,3 +282,50 @@ app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
 
+
+
+// Ruta para enviar correos
+app.post('/enviar-correo-orden-compra', (req, res) => {
+  const { pdfBase64, emailP, archivo, nombreFormato } = req.body;
+
+
+  if (!pdfBase64 || pdfBase64.length === 0) {
+    return res.status(400).json({ success: false, message: 'El archivo adjunto está vacío o no se generó correctamente.' });
+  }
+
+  const nombreRemitente = 'Eme Colombia';
+  const correoEmpresa = 'tecnico@emecolombia.com.co';
+
+  const cuerpoCorreo = `
+    Estimado cliente,<br><br>
+    Es un placer saludarle desde Eme Colombia. Agradecemos la confianza depositada en nuestros servicios y productos.<br><br>
+    Adjunto a este correo, encontrará la orden de compra .<br><br>
+    Para información adicional, no dude en comunicarse con nuestro equipo de atención al cliente. Estamos aquí para ayudarle en todo momento.<br><br>
+    Agradecemos nuevamente su preferencia y esperamos seguir siendo su opción de confianza.<br><br>
+    ¡Gracias por elegirnos!<br><br>
+    Atentamente,<br><br>
+    ${nombreRemitente}
+  `;
+
+  const attachment = {
+    Content: pdfBase64,
+    Name: `${archivo}.pdf`,
+    ContentType: 'application/pdf'
+  };
+
+  client.sendEmail({
+    From: correoEmpresa,
+    To: `${emailP}, emecolombia2023@gmail.com`,
+    Subject: 'Orden de compra Eme Colombia',
+    HtmlBody: cuerpoCorreo,
+    Attachments: [attachment],
+  }, (error, response) => {
+    if (error) {
+      console.error('Error al enviar el correo:', error);
+      res.status(500).json({ success: false, message: 'Error al enviar el correo.' });
+    } else {
+      console.log('Correo electrónico enviado con éxito:', response);
+      res.status(200).json({ success: true, message: 'Correo enviado correctamente.' });
+    }
+  });
+});
